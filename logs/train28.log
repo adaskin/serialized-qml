@@ -1,0 +1,8 @@
+mnist_3v5_s28_measured_L2_seed42_init0.6 epoch 1: train 0.495 (3724s, peak RAM 2.3 GB)
+mnist_10class_s28_coherent_L2_seed42_init0.6 epoch 1: train 0.388 (7287s, peak RAM 2.0 GB)
+/usr/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown: {'/mp-w5plih5a', '/mp-ru3l9tqh', '/mp-pbbom9q3', '/mp-44g54qbj', '/mp-0fvlont3'}
+  warnings.warn(
+=== restart 2026-11-04 11:42:17: coherent-only 28x28 (measured dropped, owner decision) ===
+mnist_4v9_s28_coherent_L2_seed42_init0.6 epoch 1: train 0.599 (2777s, peak RAM 1.9 GB)
+mnist_3v5_s28_coherent_L2_seed42_init0.6 epoch 1: train 0.623 (2835s, peak RAM 1.9 GB)
+=== 2026-11-04 13:10:54: 28x28 extra runs cancelled by the owner (simulation too slow); checkpoints in data/ckpt kept ===

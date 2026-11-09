@@ -1,0 +1,6 @@
+mnist_3v5_s28_coherent_L2_seed42 epoch 1: train 0.506 (611s, peak RAM 2.3 GB)
+mnist_3v5_s28_coherent_L2_seed42 epoch 2: train 0.502 (1028s, peak RAM 2.3 GB)
+mnist_3v5_s28_coherent_L2_seed42 epoch 3: train 0.496 (1475s, peak RAM 2.3 GB)
+mnist_3v5_s28_coherent_L2_seed42 epoch 4: train 0.501 (1913s, peak RAM 2.3 GB)
+mnist_3v5_s28_coherent_L2_seed42 epoch 5: train 0.520 val 0.495 (2337s, peak RAM 2.3 GB)
+DONE mnist_3v5_s28_coherent_L2_seed42: params=15393 train=0.520 val=0.495 test=0.508 (0.7 h)

@@ -1,0 +1,42 @@
+% Serialized circuit with measured memory (Fig.~\ref{fig:measured}); colours defined in main.tex
+\begin{tikzpicture}[x=1cm,y=-0.52cm,font=\footnotesize,
+  wire/.style={line width=0.7pt},
+  cwire/.style={double=white,double distance=1.1pt,line width=0.6pt,draw=qorange},
+  blk/.style={draw,rounded corners=2.5pt,line width=0.9pt},
+  ys/.style={draw=qblue!80!black,fill=qblue!14},
+  yw/.style={draw=qgreen!70!black,fill=qgreen!14},
+  yc/.style={draw=qorange!85!black,fill=qorange!16},
+  yr/.style={draw=qpurple!80!black,fill=qpurple!14}]
+  \def\ysys{0,1,2,3}
+  \def\yanc{4.4,5.4,6.4}
+  % one patch: #1 x offset, #2 label, #3 ancilla input state, #4 = 1 if the system qubits are discarded afterwards (otherwise everything is measured)
+  \newcommand{\patch}[4]{%
+    \begin{scope}[xshift=#1 cm]
+      \foreach \y in \ysys {\draw[wire,qblue] (-0.45,\y) -- (3.8,\y); \node[anchor=east] at (-0.45,\y) {$|0\rangle$};}
+      \foreach \y/\i in {4.4/0,5.4/1,6.4/2} {\draw[wire,qorange] (-0.45,\y) -- (3.8,\y); \ifnum#4=1 \node[anchor=east] at (-0.45,\y) {$|0\rangle$};\else\node[anchor=east] at (-0.45,\y) {$|b_\i\rangle$};\fi}
+      \foreach \y in \ysys {\draw[blk,ys] (-0.15,\y-0.42) rectangle (1.15,\y+0.42) node[midway,font=\scriptsize] {$E(x_{#2,\y})$};}
+      \draw[blk,yw] (1.35,-0.5) rectangle (2.6,6.9) node[midway,align=center] {$W_{#2}$\\[3pt]\scriptsize $L$\\\scriptsize layers};
+      \draw[blk,yc] (2.95,-0.5) rectangle (3.8,6.9) node[midway,align=center] {$W_c$};
+      \draw[line width=0.6pt,gray] (-0.15,-1.3) -- (3.8,-1.3);
+      \node[above=-1pt] at (1.85,-1.3) {\textbf{patch} $#2$: $\mathbf{x}_{#2}=(x_{#2,0},\dots,x_{#2,3})$};
+      \ifnum#4=1
+        \foreach \y in \yanc {\draw[blk,yr] (4.0,\y-0.45) rectangle (4.55,\y+0.45) node[midway] {$Z$};}
+        \foreach \y in \ysys {\node[qblue!80!black,font=\scriptsize] at (4.05,\y) {$\times$};}
+      \else
+        \foreach \y in {0,1,2,3,4.4,5.4,6.4} {\draw[blk,yr] (4.0,\y-0.45) rectangle (4.55,\y+0.45) node[midway] {$Z$};}
+      \fi
+    \end{scope}}
+  \node[qblue!80!black,rotate=90,font=\scriptsize] at (-2.0,1.5) {system};
+  \node[qorange!80!black,rotate=90,font=\scriptsize] at (-2.0,5.4) {memory};
+  \foreach \y/\l in {0/s_0,1/s_1,2/s_2,3/s_3} {\node[qblue!80!black,anchor=east] at (-1.05,\y) {$\l$};}
+  \foreach \y/\l in {4.4/a_0,5.4/a_1,6.4/a_2} {\node[qorange!80!black,anchor=east] at (-1.05,\y) {$\l$};}
+  \patch{0}{1}{}{1}
+  % classical bits between patches (the system qubits are discarded and start again in |0>)
+  \foreach \y in \yanc {\draw[cwire] (4.55,\y) -- (9.85,\y);}
+  \node[qorange!80!black,font=\scriptsize,align=center] at (7.2,7.7) {3 classical bits $b=(b_0,b_1,b_2)$ carry the memory to the next patch};
+  \node[qblue!80!black,font=\scriptsize,align=left,anchor=west] at (4.5,1.5) {system qubits are\\discarded; every patch\\restarts them in $|0\rangle$};
+  \foreach \x in {7.9,8.3,8.7} {\fill (\x,1.5) circle (1.5pt);}
+  \patch{11}{N}{}{0}
+  \draw[blk,yr] (15.9,-0.5) rectangle (17.7,6.9) node[midway,align=center] {readout\\[3pt]$\langle Z_q\rangle$\\$\langle Z_qZ_{q+1}\rangle$\\[3pt]$\downarrow$\\linear\\$\downarrow$\\logits};
+  \foreach \y in {0,1,2,3,4.4,5.4,6.4} {\draw[wire] (15.55,\y) -- (15.9,\y);}
+\end{tikzpicture}

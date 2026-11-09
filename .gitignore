@@ -1,0 +1,34 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Large, reproducible raw dataset (downloaded by src/download_mnist.py)
+data/raw/*.npz
+data/raw/*.gz
+data/ckpt/
+
+# Experimental evidence is intentionally versioned. These negations also
+# protect the artifacts if broader log/build ignore rules are added later.
+!data/results/
+!data/results/**
+!logs/
+!logs/**
+!*.log
+!reports/
+!reports/**
+!figures/
+!figures/**
+*.gz
+
+paper/main.fls
+paper/main.aux
+paper/main.fdb_latexmk
+paper/main.log
+paper/main.synctex.gz
+paper/main.out
+# extra datasets for src/datasets.py (downloaded raw files, not committed)
+data/raw/tier/

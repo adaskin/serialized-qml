@@ -1,0 +1,5 @@
+numpy>=1.26
+torch>=2.2
+matplotlib>=3.8
+pennylane>=0.40
+pytest>=8

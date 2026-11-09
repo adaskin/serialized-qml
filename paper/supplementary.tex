@@ -1,0 +1,116 @@
+% Supplementary Information. Included from main.tex with \input{supplementary} after \appendix.
+\section{Supplementary Information}
+\label{sec:supp}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+
+\subsection{Gates of one patch}
+
+Supplementary Fig.~\ref{fig:onepatch} shows the gates acting on one patch, as drawn by PennyLane for $L=2$: the encoding rotations on the system qubits, the $\mathrm{Rot}$ layers and $\mathrm{CRot}$ chains of $W_i$, and $W_c$ with the controlled rotations from each ancilla to the system qubits.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/circuit_one_patch.png}
+  \caption{PennyLane drawing of the gates of one patch with $L=2$ repetitions of $W_i$ (the experiments use $L=2$ and $L=4$).}
+  \label{fig:onepatch}
+\end{figure}
+
+\subsection{MNIST results}
+
+Supplementary Tables~\ref{tab:mnist-results} and~\ref{tab:mnist-amp} give the test accuracies behind Figs.~\ref{fig:capacity} and~\ref{fig:classical}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{MNIST test accuracy (\%) at the last epoch, mean $\pm$ standard deviation over three seeds. Classical models are sized to the parameter count of the circuit with the given $L$; logistic regression does not depend on $L$. The best mean of each column within each block is in bold. $^\dagger$One of the three seeds stalled at about 47\% training accuracy and is included in the mean. Generated from the result files by \texttt{scripts/paper\_figures.py}.}
+  \label{tab:mnist-results}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \resizebox{\textwidth}{!}{\input{tables/mnist_results}}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{MNIST test accuracy (\%) of the amplitude-encoding circuits: the whole image as a normalized amplitude vector of 4 qubits (shrunk to $4\times4$) or 7 qubits ($8\times8$ as it is, $14\times14$ shrunk to $11\times11$), followed by $L$ layers of the block of the serialized circuit and the same readout (60--462 parameters). Mean $\pm$ standard deviation over three seeds; the best mean of each column is in bold.}
+  \label{tab:mnist-amp}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/mnist_amplitude}
+\end{table}
+
+\subsection{Twelve further datasets}
+
+Supplementary Table~\ref{tab:datasets} describes the datasets and Supplementary Table~\ref{tab:bench} gives the test accuracies behind Fig.~\ref{fig:bench}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{The twelve further datasets. $d$: features, $N$: patches of four features, $k$: classes. Tabular sets keep their natural class frequencies (majority class in the last column); the image sets are class balanced except PneumoniaMNIST, which keeps its official splits.}
+  \label{tab:datasets}
+  \footnotesize
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}llrrrrr@{}}
+    \toprule
+    dataset & source & $d$ & $N$ & $k$ & train / val / test & majority \\
+    \midrule
+    Waveform & UCI 107~\cite{uci_waveform} (21 wave attributes) & 21 & 6 & 3 & 3\,601 / 400 / 999 & 33.9\% \\
+    Wall-Following & UCI 194~\cite{freire2009wall}, 24 sensors & 24 & 6 & 4 & 3\,929 / 436 / 1\,091 & 40.4\% \\
+    Covertype & UCI 31~\cite{uci_covertype,blackard1999covertype} & 54 & 14 & 7 & 10\,000 / 2\,000 / 9\,999 & 48.8\% \\
+    Letter & UCI 59~\cite{frey1991letter} & 16 & 4 & 26 & 10\,000 / 1\,600 / 4\,000 & 4.1\% \\
+    Spambase & UCI 94~\cite{uci_spambase} & 57 & 15 & 2 & 3\,313 / 368 / 920 & 60.5\% \\
+    Credit Default & UCI 350~\cite{yeh2009credit} & 23 & 6 & 2 & 10\,000 / 2\,000 / 6\,000 & 77.9\% \\
+    Landsat & UCI 146~\cite{uci_landsat,king1995statlog} (train and test joined) & 36 & 9 & 6 & 4\,634 / 514 / 1\,287 & 23.9\% \\
+    Dry Bean & UCI 602~\cite{koklu2020drybean} & 16 & 4 & 7 & 9\,801 / 1\,089 / 2\,721 & 26.1\% \\
+    \midrule
+    Fashion-MNIST & \cite{xiao2017fashion}, $14\times14$ & 196 & 49 & 10 & 10\,000 / 2\,000 / 10\,000 & 10\% \\
+    BloodMNIST & MedMNIST v2~\cite{yang2023medmnist,acevedo2020blood}, grayscale, $14\times14$ & 196 & 49 & 8 & 8\,779 / 1\,527 / 3\,421 & 19.5\% \\
+    PneumoniaMNIST & MedMNIST v2~\cite{yang2023medmnist,kermany2018pneumonia}, $14\times14$ & 196 & 49 & 2 & 4\,708 / 524 / 624 & 62.5\% \\
+    Kuzushiji-MNIST & \cite{clanuwat2018kmnist}, $14\times14$ & 196 & 49 & 10 & 10\,000 / 2\,000 / 10\,000 & 10\% \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Test accuracy (\%) on twelve further datasets at the last epoch, mean $\pm$ standard deviation over three seeds; the best mean of each row is in bold. $k$: classes, $N$: patches of four features, params: parameters of the circuit with coherent memory and $L=4$, which is also the size of the MLP and the CNN. Amplitude: the whole input as the amplitude vector of the same seven qubits with $L=4$ or $8$ layers of the same block (200--550 parameters). Gradient boosting: scikit-learn histogram gradient boosting, an ensemble of 300 trees shown as a reference, not tuned. Measured memory was run on the tabular sets only (above the line).}
+  \label{tab:bench}
+  \footnotesize
+  \setlength{\tabcolsep}{2.5pt}
+  \resizebox{\textwidth}{!}{\input{tables/bench_results}}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{As Supplementary Table~\ref{tab:bench}, but balanced accuracy (\%), the mean of the per-class recalls: last epoch, mean $\pm$ standard deviation over three seeds; the best mean of each row is in bold.}
+  \label{tab:bench-bal}
+  \footnotesize
+  \setlength{\tabcolsep}{2.5pt}
+  \resizebox{\textwidth}{!}{\input{tables/bench_balanced}}
+\end{table}
+
+\subsection{Classical models with the structure of the circuit}
+
+\begin{table}[htbp]
+  \centering
+  \caption{The serialized circuit ($L=4$) against classical models that read the input patch by patch with position-specific parameters. Test accuracy (\%) at the last epoch, mean over three seeds; the best mean of each row is in bold. MLP: the one-hidden-layer MLP of Supplementary Table~\ref{tab:bench} (for MNIST, the parameter-matched MLP of Supplementary Table~\ref{tab:mnist-results}). Seq.\ RNN: recurrent network with its own weights at every patch; MPS: matrix-product-state classifier with one tensor per feature; both are sized to the parameter count of the circuit as closely as their hidden or bond dimension allows. 8-state HMM: input-driven hidden Markov model over eight states, with 1.5 to 2 times the parameters of the circuit. The learning rate of each classical model is chosen by mean validation accuracy. Measured memory was not run on the 49-patch image sets.}
+  \label{tab:struct}
+  \footnotesize
+  \input{tables/struct_baselines}
+\end{table}
+
+\subsection{Readout and head variants on Letter}
+
+Supplementary Table~\ref{tab:letter} collects the variants of the circuit run on Letter, each against a one-hidden-layer MLP with the same number of parameters.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Letter (26 classes): readout, head and depth variants of the circuit with coherent memory, against a one-hidden-layer MLP of the same size. Test accuracy (\%), mean $\pm$ standard deviation over three seeds; the better mean of each row is in bold. Gradient-boosted trees reach $95.3\pm0.1$.}
+  \label{tab:letter}
+  \footnotesize
+  \input{tables/letter_variants}
+\end{table}
+
+\subsection{$28\times28$ images}
+\label{sec:supp-28}
+
+At $28\times28$ the serialized circuit has 196 patches and 74\% of them are empty (62\% at $14\times14$, 41\% at $8\times8$). With the settings of the MNIST experiments it stays at chance or only fits the training set, and the simulation takes about 47 minutes (3 vs.\ 5) to 2 hours (10 classes) per epoch, i.e.\ days per run, so it is not reported. The classical and amplitude-encoding baselines were run at $28\times28$ and are in the code repository.
